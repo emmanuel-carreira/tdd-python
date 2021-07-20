@@ -1,9 +1,9 @@
 from unittest import TestCase
 
-from src.leilao.dominio import Avaliador, Lance, Leilao, Usuario
+from src.leilao.dominio import Lance, Leilao, Usuario
 
 
-class TestAvaliador(TestCase):
+class TestLeilao(TestCase):
 
     def setUp(self):
         self.usuario_teste = Usuario(nome="Usuário teste")
@@ -14,43 +14,35 @@ class TestAvaliador(TestCase):
 
         self.leilao = Leilao(descricao="Leilão teste")
 
-        self.avaliador = Avaliador()
-
     def test_avalia_lances_crescentes(self):
         self.leilao.propoe(self.lance_150)
         self.leilao.propoe(self.lance_200)
 
-        self.avaliador.avalia(leilao=self.leilao)
-
         maior_lance_esperado = 200.00
         menor_lance_esperado = 150.00
 
-        self.assertEqual(maior_lance_esperado, self.avaliador.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
+        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
+        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
 
 
     def test_avalia_lances_decrescentes(self):
         self.leilao.propoe(self.lance_200)
         self.leilao.propoe(self.lance_150)
 
-        self.avaliador.avalia(leilao=self.leilao)
-
         maior_lance_esperado = 200.00
         menor_lance_esperado = 150.00
 
-        self.assertEqual(maior_lance_esperado, self.avaliador.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
+        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
+        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
 
     def test_avalia_um_lance(self):
         self.leilao.propoe(self.lance_200)
 
-        self.avaliador.avalia(leilao=self.leilao)
-
         maior_lance_esperado = 200.00
         menor_lance_esperado = 200.00
 
-        self.assertEqual(maior_lance_esperado, self.avaliador.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
+        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
+        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
 
     def test_avalia_lances_aleatorios(self):
         self.leilao.propoe(self.lance_200)
@@ -60,10 +52,8 @@ class TestAvaliador(TestCase):
         lance_300 = Lance(usuario=usuario_teste_3, valor=300.00)
         self.leilao.propoe(lance_300)
 
-        self.avaliador.avalia(leilao=self.leilao)
-
         maior_lance_esperado = 300.00
         menor_lance_esperado = 150.00
 
-        self.assertEqual(maior_lance_esperado, self.avaliador.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
+        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
+        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)

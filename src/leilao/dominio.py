@@ -23,24 +23,16 @@ class Leilao:
     def __init__(self, descricao):
         self.descricao = descricao
         self.__lances = []
+        self.menor_lance = sys.float_info.max
+        self.maior_lance = sys.float_info.min
 
     def propoe(self, lance: Lance):
         self.__lances.append(lance)
+        if lance.valor > self.maior_lance:
+            self.maior_lance = lance.valor
+        if lance.valor < self.menor_lance:
+            self.menor_lance = lance.valor
 
     @property
     def lances(self):
         return self.__lances[:]
-
-
-class Avaliador:
-
-    def __init__(self):
-        self.menor_lance = sys.float_info.max
-        self.maior_lance = sys.float_info.min
-
-    def avalia(self, leilao: Leilao):
-        for lance in leilao.lances:
-            if lance.valor > self.maior_lance:
-                self.maior_lance = lance.valor
-            if lance.valor < self.menor_lance:
-                self.menor_lance = lance.valor
