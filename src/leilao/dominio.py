@@ -3,8 +3,18 @@ import sys
 
 class Usuario:
 
-    def __init__(self, nome):
+    def __init__(self, nome, valor_carteira):
         self.__nome = nome
+        self.__carteira = valor_carteira
+
+    def propoe_lance(self, leilao, valor):
+        lance = Lance(usuario=self, valor=valor)
+        leilao.propoe(lance=lance)
+        self.__carteira -= valor
+
+    @property
+    def carteira(self):
+        return self.__carteira
 
     @property
     def nome(self):

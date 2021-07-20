@@ -6,8 +6,12 @@ from src.leilao.dominio import Lance, Leilao, Usuario
 class TestLeilao(TestCase):
 
     def setUp(self):
-        self.usuario_teste = Usuario(nome="Usuário teste")
-        self.usuario_teste_2 = Usuario(nome="Usuário teste 2")
+        self.usuario_teste = Usuario(
+            nome="Usuário teste", valor_carteira=1000.00
+        )
+        self.usuario_teste_2 = Usuario(
+            nome="Usuário teste 2", valor_carteira=1500.00
+        )
 
         self.lance_150 = Lance(usuario=self.usuario_teste, valor=150.00)
         self.lance_200 = Lance(usuario=self.usuario_teste_2, valor=200.00)
