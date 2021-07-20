@@ -28,7 +28,9 @@ class Leilao:
 
     def propoe(self, lance: Lance):
         if self.__lances and self.__lances[-1].usuario == lance.usuario:
-            return
+            raise ValueError(
+                "O mesmo usuário não pode dar dois lances seguidos"
+            )
 
         self.__lances.append(lance)
         if lance.valor > self.maior_lance:
