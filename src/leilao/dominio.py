@@ -27,6 +27,9 @@ class Leilao:
         self.maior_lance = sys.float_info.min
 
     def propoe(self, lance: Lance):
+        if self.__lances and self.__lances[-1].usuario == lance.usuario:
+            return
+
         self.__lances.append(lance)
         if lance.valor > self.maior_lance:
             self.maior_lance = lance.valor
