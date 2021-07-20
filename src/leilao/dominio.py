@@ -32,6 +32,9 @@ class Leilao:
                 "O mesmo usuário não pode dar dois lances seguidos"
             )
 
+        if self.__lances and self.__lances[-1].valor >= lance.valor:
+            raise ValueError("O valor do lance deve ser maior do que o último")
+
         self.__lances.append(lance)
         if lance.valor > self.maior_lance:
             self.maior_lance = lance.valor

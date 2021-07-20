@@ -25,35 +25,16 @@ class TestLeilao(TestCase):
         self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
 
 
-    def test_avalia_lances_decrescentes(self):
-        self.leilao.propoe(lance=self.lance_200)
-        self.leilao.propoe(lance=self.lance_150)
-
-        maior_lance_esperado = 200.00
-        menor_lance_esperado = 150.00
-
-        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
+    def test_invalida_lances_decrescentes(self):
+        with self.assertRaises(ValueError):
+            self.leilao.propoe(lance=self.lance_200)
+            self.leilao.propoe(lance=self.lance_150)
 
     def test_avalia_um_lance(self):
         self.leilao.propoe(lance=self.lance_200)
 
         maior_lance_esperado = 200.00
         menor_lance_esperado = 200.00
-
-        self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
-        self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
-
-    def test_avalia_lances_aleatorios(self):
-        self.leilao.propoe(lance=self.lance_200)
-        self.leilao.propoe(lance=self.lance_150)
-
-        usuario_teste_3 = Usuario("Usuario teste 3")
-        lance_300 = Lance(usuario=usuario_teste_3, valor=300.00)
-        self.leilao.propoe(lance=lance_300)
-
-        maior_lance_esperado = 300.00
-        menor_lance_esperado = 150.00
 
         self.assertEqual(maior_lance_esperado, self.leilao.maior_lance)
         self.assertEqual(menor_lance_esperado, self.leilao.menor_lance)
