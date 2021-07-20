@@ -17,8 +17,8 @@ class TestAvaliador(TestCase):
         self.avaliador = Avaliador()
 
     def test_avalia_lances_crescentes(self):
-        self.leilao.lances.append(self.lance_150)
-        self.leilao.lances.append(self.lance_200)
+        self.leilao.propoe(self.lance_150)
+        self.leilao.propoe(self.lance_200)
 
         self.avaliador.avalia(leilao=self.leilao)
 
@@ -30,8 +30,8 @@ class TestAvaliador(TestCase):
 
 
     def test_avalia_lances_decrescentes(self):
-        self.leilao.lances.append(self.lance_200)
-        self.leilao.lances.append(self.lance_150)
+        self.leilao.propoe(self.lance_200)
+        self.leilao.propoe(self.lance_150)
 
         self.avaliador.avalia(leilao=self.leilao)
 
@@ -42,7 +42,7 @@ class TestAvaliador(TestCase):
         self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
 
     def test_avalia_um_lance(self):
-        self.leilao.lances.append(self.lance_200)
+        self.leilao.propoe(self.lance_200)
 
         self.avaliador.avalia(leilao=self.leilao)
 
@@ -53,12 +53,12 @@ class TestAvaliador(TestCase):
         self.assertEqual(menor_lance_esperado, self.avaliador.menor_lance)
 
     def test_avalia_lances_aleatorios(self):
-        self.leilao.lances.append(self.lance_200)
-        self.leilao.lances.append(self.lance_150)
+        self.leilao.propoe(self.lance_200)
+        self.leilao.propoe(self.lance_150)
 
         usuario_teste_3 = Usuario("Usuario teste 3")
         lance_300 = Lance(usuario=usuario_teste_3, valor=300.00)
-        self.leilao.lances.append(lance_300)
+        self.leilao.propoe(lance_300)
 
         self.avaliador.avalia(leilao=self.leilao)
 
