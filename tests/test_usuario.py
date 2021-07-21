@@ -1,6 +1,7 @@
 import pytest
 
 from src.leilao.dominio import Leilao, Usuario
+from src.leilao.excecoes import LanceInvalido
 
 
 @pytest.fixture
@@ -29,5 +30,5 @@ def test_aceita_lance_valor_igual_a_carteira(usuario, leilao):
 
 
 def test_aceita_lance_valor_maior_que_carteira(usuario, leilao):
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
         usuario.propoe_lance(leilao=leilao, valor=1000.00)

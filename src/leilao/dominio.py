@@ -1,5 +1,7 @@
 import sys
 
+from .excecoes import LanceInvalido
+
 
 class Usuario:
 
@@ -9,7 +11,7 @@ class Usuario:
 
     def propoe_lance(self, leilao, valor):
         if valor > self.__carteira:
-            raise ValueError("Valor do lance indisponível na carteira")
+            raise LanceInvalido("Valor do lance indisponível na carteira")
 
         lance = Lance(usuario=self, valor=valor)
         leilao.propoe(lance=lance)
@@ -41,12 +43,12 @@ class Leilao:
 
     def propoe(self, lance: Lance):
         if self.__lances and self.__lances[-1].usuario == lance.usuario:
-            raise ValueError(
+            raise LanceInvalido(
                 "O mesmo usuário não pode dar dois lances seguidos"
             )
 
         if self.__lances and self.__lances[-1].valor >= lance.valor:
-            raise ValueError("O valor do lance deve ser maior do que o último")
+            raise LanceInvalido("O valor do lance deve ser maior do que o último")
 
         self.__lances.append(lance)
         if lance.valor > self.maior_lance:
