@@ -10,15 +10,23 @@ class Usuario:
         self.__carteira = valor_carteira
 
     def propoe_lance(self, leilao, valor):
-        if not self._possui_valor_na_carteira(valor=valor):
-            raise LanceInvalido("Valor do lance indisponível na carteira")
-
-        lance = Lance(usuario=self, valor=valor)
-        leilao.propoe(lance=lance)
-        self.__carteira -= valor
+        if self._lance_valido(valor=valor):            
+            lance = Lance(usuario=self, valor=valor)
+            leilao.propoe(lance=lance)
+            self.__carteira -= valor
 
     def _possui_valor_na_carteira(self, valor):
-        return valor <= self.__carteira
+        if valor <= self.__carteira:
+            return True
+        raise LanceInvalido("Valor do lance indisponível na carteira")
+
+    def _lance_positivo(self, valor):
+        if valor > 0:
+            return True
+        raise LanceInvalido("Valor do lance deve ser positivo")
+
+    def _lance_valido(self, valor):
+        return self._lance_positivo(valor=valor) and self._possui_valor_na_carteira(valor=valor)
 
     @property
     def carteira(self):

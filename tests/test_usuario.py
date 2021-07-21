@@ -32,3 +32,13 @@ def test_aceita_lance_valor_igual_a_carteira(usuario, leilao):
 def test_aceita_lance_valor_maior_que_carteira(usuario, leilao):
     with pytest.raises(LanceInvalido):
         usuario.propoe_lance(leilao=leilao, valor=1000.00)
+
+
+def test_nao_aceita_lance_negativo(usuario, leilao):
+    with pytest.raises(LanceInvalido):
+        usuario.propoe_lance(leilao=leilao, valor=-10.00)
+
+
+def test_nao_aceita_lance_zero(usuario, leilao):
+    with pytest.raises(LanceInvalido):
+        usuario.propoe_lance(leilao=leilao, valor=0.00)
