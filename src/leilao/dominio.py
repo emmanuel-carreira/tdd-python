@@ -8,6 +8,9 @@ class Usuario:
         self.__carteira = valor_carteira
 
     def propoe_lance(self, leilao, valor):
+        if valor > self.__carteira:
+            raise ValueError("Valor do lance indisponível na carteira")
+
         lance = Lance(usuario=self, valor=valor)
         leilao.propoe(lance=lance)
         self.__carteira -= valor
